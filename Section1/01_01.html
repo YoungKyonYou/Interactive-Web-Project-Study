@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <link rel="stylesheet" href="/css/reset.css">
+  <style>
+    .box-container{
+      /*나란히 가로로 배치하*/
+      display: flex;
+    }
+    .box{
+      width: 100px;
+      height: 100px;
+      /* solid는 단일한 줄을 의미 */
+      border: 2px solid black;
+      background: rgba(255,255,0,0.7);
+
+      /* 첫 번째는 바뀌는 시간(1s) 두번째는 delay(2s) 즉 2초 뒤에 바뀌라는 것 transition은 변형에 대한 애니메이션을 자연스럽게 만들게 해준다.
+      transition: 1s 2s; */
+
+      transition: 1s;
+    }
+    .box:hover{
+      /* hover는 사용자의 커서(마우스의 포인터)가 요소에 올라가 있을 때 적용  마우스를 올리면 2배로 커지게 한다
+      transform: scale(2) rotate(45deg); */
+
+      /* 비틀기
+      transform: skewY(30deg);
+      transform: skew(30deg); */
+
+      /* 왼쪽으로 30px 위에서 부터 아래로 10px 이동
+      transform: translate(30px, 10px);
+      translateX, translateY, translateZ 이런 식으로도 사용 가능
+       */
+
+      /* 여기서보면 크키가 커지는 게 중앙인 것을 알 수 있는 기준점을 바꿔보자.
+       transform: scale(2); */
+
+       /* 커지는 기준점을 왼쪽 위로 바꾸는 것이다.
+       transform-origin: left top;
+       transform: scale(1.5); */
+
+        /* 먼저 나온 퍼센티지가 가로 방향이고 두 번째가 세로 방향 위치이다. 즉 x축과 y축이 0% 0%는 left top를 의미
+       transform-origin: 0% 0%; */
+
+       /* right bottom
+      transform-origin: 100% 100%; */
+
+      /* 회전하기
+      transform: rotate(30deg); */
+
+/*
+      transition를 쓸 때 width 속성은 auto로 하면 제대로 먹히질 않는다.
+      width: 200px;
+      width: auto;
+      background: red; */
+
+
+    }
+  </style>
+</head>
+<body>
+  <h1>CSS Transform</h1>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil magni pariatur earum quod deleniti atque minus blanditiis nesciunt vitae. Perspiciatis at libero voluptatum maxime excepturi, iusto blanditiis rerum, iste placeat quam aspernatur. Vel dolore vero molestiae quod esse atque amet aperiam reiciendis deserunt reprehenderit debitis sint, eveniet sunt blanditiis, laboriosam earum quos a illum ad perferendis tempora! Ipsa eius quaerat molestiae minima aspernatur quas quis recusandae earum nulla. Maiores aliquid at quas soluta dolores necessitatibus, quo non tempore cumque, maxime adipisci! Laudantium ut voluptatum excepturi quam eveniet debitis corporis quod beatae non omnis numquam, ex facere molestias repudiandae id totam.
+  </p>
+  <div class="box-container">
+    <div class="box">A</div>
+    <div class="box">B</div>
+    <div class="box">C</div>
+    <div class="box">D</div>
+    <div class="box">E</div>
+  </div>
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt magni, eius debitis, atque rerum modi blanditiis maiores consequatur, voluptatum porro qui ratione, inventore et explicabo? Sit dolores adipisci doloremque non ipsum, deleniti beatae illum blanditiis expedita porro accusantium, reprehenderit et error totam aspernatur est? Dolor vitae minus provident explicabo veritatis, omnis quia placeat libero fugit amet nihil odit dolorum sed, nobis odio, nisi debitis reiciendis architecto id! Recusandae laboriosam, necessitatibus quasi aliquid odio fugiat ullam velit vel accusantium est, porro magnam soluta, officiis iusto cum dolor quas facilis amet. Rem, animi quibusdam a voluptatum doloremque ratione non, voluptas consequuntur excepturi.
+  </p>
+</body>
+</html>
