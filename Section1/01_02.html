@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <style>
+    @keyframes sample-ani{
+      0%{
+        transform: translate(0, 0);
+      }
+      50%{
+        transform: translate(500px, 0);
+      }
+      100%{
+        transform: translate(400px, 500px);
+      }
+    }
+    .box{
+      /* flex는 가로로 정렬을 해준다(width 만큼의 공간을 차지) */
+      display: flex;
+      /* 세로축 중심축 */
+      align-items: center;
+      /* 가로축-중심축 */
+      justify-content: center;
+      width: 100px;
+      height: 100px;
+      border: 2px solid #000;
+      background: #fff000;
+      /* 2초동안 linear하게 움직임(등속도) infinite는 무한으로 반복*/
+      animation: sample-ani 2s linear infinite;
+    }
+  </style>
+</head>
+<body>
+  <h1>Animation</h1>
+  <div class="box">BOX</div>
+</body>
+</html>
