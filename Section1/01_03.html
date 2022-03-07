@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!-- 이거를 GIF로 하면 더 편하다고 생각할 수 있지만 치명적인 단점이 있다
+바로 alpha 채널이 설정이 안된다는 것이다 즉 투명도 설정이 안된다.
+그리고 코드로 맘대로 설정할 수가 없다.  -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <style>
+    body{
+      background: #222;
+    }
+    @keyframes spaceship-ani{
+      /* 100%라는 것은 끝 점이다 애니메이션의 끝점이다 */
+      /* 0%는 from이라는 keyword로 대체가능하고 100%는 to라는 keyword로 대체 가능 */
+      /* 밑에 background 속성에서 x와 y 좌표를 0 0으로 줬기 때문에 굳이 0%나 from를 안 써도 된다 애초에 시작지점이
+      왼쪽 맨 위이기 때문이다. */
+      to{
+        /* x축만 움직이고 y축은 움직일 필요가 없다 */
+        /* 2550은 150이 17 steps로 움직인다고 생각하면 된다. (2550/150=17) */
+          background-position: -2550px 0;
+      }
+    }
+    .spaceship{
+      /* 여기서 width:150px과 height 150px은 150x150px의 네모난 것을 만들겠다는 것 그래서 사진이 그만큼만 보여지는 것 */
+      width: 150px;
+      height: 150px;
+      /* no-repeat: 배경 이미지의 반복 여부와 반복 방향을 정한다.no-peat은 반복하지 않겠다는 것 */
+      /* background size를 지정할 때는 '/'(슬래시)로 구분한다  그리고 지금 image 사이즈가 가로 5100 세로 300이다
+      그럼 계산기로 5100/2 하고 300/2 할 수도 있지만 가로 세로 둘 중에 빨리 계산되는 거 하나만 하고 나머지 한변은 auto로
+      하는 것이 좋다.*/
+      /* no-repeat 다음의 0 0은 x와 y 좌표를 의미하고 0 0 은 왼쪽 가장 위를 의미 */
+      background: url('images/sprite_spaceship.png') no-repeat 0 0 / auto 150px;
+      /* steps 키워드는 애니메이션을 단계별로 쪼개서 보여준다 여기선 17로 설정했는데 이유는
+      사진의 길이가 가로 5100px 세로 300px이다 5100/300=17이기 때문이다. */
+      animation: spaceship-ani 1s infinite reverse steps(17) ;
+    }
+  </style>
+</head>
+<body>
+  <div class="spaceship"></div>
+</body>
+</html>
