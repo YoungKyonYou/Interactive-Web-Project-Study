@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <style>
+    .container{
+      display: flex;
+
+
+
+      /* flex-direction의 기본 값은 row이다. */
+      /* column-reverse row-reverse 속성도 줄 수 있는데 반대쪽으로 붙인다 자주 쓰이진 않음 */
+      /* flex-direction: column; */
+
+      /* 메인 축에서 정렬하게 된다.(justify-content) */
+      /* justify-content 속성 중 space-between이라는 속성이 있는데 엘리멘트 사이에 일정하게 간격을
+      벌려준다. 이것은 자주 쓴다. */
+      /* space-around도 있다. 얘는 완전히 사이가 아니라 주변으로 여백이 생긴다(균일하게)*/
+      /* justify-content: flext-start; */
+
+      /* align-items은 수직 방향 정렬이다. */
+      /* 기본값은 strech이다.(쭉 늘어나는 것)
+      여기도 마찬가지로 flex-start, flex-end를 줄 수 있다*/
+      /* justify-content: center;
+      align-items: center; */
+      height: 80vh;
+      background: gray;
+    }
+    .item{
+      /* flex-grow는 숫자가 들어가면 늘어난다 어떤 숫자가 의미가 있으려면 각각 아이템마다
+      다른 숫자를 넣어줘야 한다.(비율을 의미) */
+      /* 이게 만약 1이라면 다 비율이 같아야 되는데 그렇지 않다 이유는 item안에 컨텐츠 여백의 비율이
+      같아지기 때문이다. */
+      /* flex-grow: 1; */
+
+      /* flex-basis를 0으로 해주면 우리가 원하는 비율로 나눠줌 위와 같이 여백으로 해주지 않은
+      기본값은 auto이다. */
+      /* flex-basis: 0; */
+
+      /* flex: 1은 flex-basis: 0인 것처럼 하게 해준다. 개발자 도구로 보면 flex-basis:0이
+      자동으로 들어간다. */
+      flex: 1;
+      border: 3px solid black;
+      font-size: 3rem;
+      background: white;
+    }
+    /* 컨텐츠와 옆면의 비율을 의미함. */
+    /* .item:nth-child(1){
+      flex-grow: 1;
+    }
+    .item:nth-child(2){
+      flex-grow: 5;
+    }
+    .item:nth-child(3){
+      flex-grow: 2;
+    }
+    .item:nth-child(4){
+      flex-grow: 3;
+    }
+    .item:nth-child(5){
+      flex-grow: 1;
+    } */
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="item">AAA</div>
+    <div class="item">B</div>
+    <div class="item">CCCCCC</div>
+    <div class="item">DDD</div>
+    <div class="item">E</div>
+  </div>
+</body>
+</html>
