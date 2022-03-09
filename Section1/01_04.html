@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <!--  em과 rem은 둘 다 font-size 속성 값에 비례해서 결정되는 상대 단위이다.
+  예를 들어 font-size: 16px인 경우, 상대 단위는 브라우저에 의해서 다음과 같이 계산된다.
+
+  0.5em = 16 px x 0.5 = 8px
+  1em = 16 px x 1 = 16px
+  2em = 16 px x 2 = 32px
+  3em = 16 px x 3 = 48px
+
+  rem의 r은 root, 즉 최상위 요소를 font-size 속성 값 의미. HTML에서 최상위 요소는 <html>
+  이다. 따라서 rem의 경우, html 요소의 font-size 속성 값이 기준이 된다.
+  참고: https://www.daleseo.com/css-em-rem/
+  CSS의 default font-size는 16px이다. 즉 아래 font-size: 1.5rem은 (1.5*16)px이된다.-->
+  <style>
+    .world{
+      display: flex;
+      align-items: center;
+      justify-content:center;
+      /* vw는 실제 내 화면의 width이고 vh는 실제 내 화면의 height이다. 60vw는 60%랑 같다 */
+      width: 80vw;
+      height: 60vh;
+      background: #fff000;
+      /* 눈에서의 거리라고 생각해보자. 진짜 거리는 아니고 느낌을 보라는 것이다.
+       perspective라는 것은 내 눈에서 얼마 멀리있는 시점에서 바라볼 것이냐는 것이다.
+       그러면 숫자가 작아질 수족 내 눈 앞에 확 붙였을 때처럼 되는 것이다.
+       크기를 말하는 것이 아니라 모양을 봐야 한다.*/
+       /* 그런데 각도가 제각각 다르다 우리는 똑같게 하길 원한다
+       그럴 때는 world에다가 perspective 주는 것이 아니라 card에다가 준다.
+       즉 transform 안에 넣어준다. */
+      perspective: 500px;
+    }
+
+    .card{
+      position: relative;
+      width: 100px;
+      height: 150px;
+      margin: 1em;
+      transform: rotateY(0deg);
+      transition: 1s;
+      /* transform: perspective(500px) rotateY(45deg); */
+      /*perspective 속성을 적용해서 3D 효과를 줬는데 지금 우리가 뒤짚은 엘리먼트는
+      card 안에 card-side이다 그 3D 효과가 html element 레벨을 거치면서 기본적으로
+      통과가 안된다. 그래 world에 3D 효과가 적용됐더라고 해도 중간(world와 card-size)에 card가
+      끼어져 있어 3D 효과가 제대로 못 미친다. 그래서 결론적으로 card도 3D 효과가 잘 전달이 되도록
+      속성을 세팅해줘야 하는데 이것이 바로 아래와 같은 속성이다.
+
+      자, 요소의 perspective 속성은 바로 아래의 자식 요소에게만 적용됩니다.
+      우리는 perspective를 .card에게 주었으니까 오로지 .card만 3D transform이 가능한 상태였던 거죠.
+      transform-style: preserve-3d는 이 perspective를 부모로부터 받아 스윽 자신을 통과해 자식까지(card-side) 전달되도록 합니다.
+      이게 없다면 .card-side는 아무런 3D 효과도 줄 수가 없어요!*/
+      transform-style: preserve-3d;
+
+      transform-origin: left;
+    }
+    .card-side{
+      display: flex;
+      align-items: center;
+      justify-content:center;
+      /* position 관련 좋은 포스트: https://www.zerocho.com/category/CSS/post/5864f3b59f1dc000182d3ea1 */
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height:100%;
+      border-radius: 0.5em;
+      font-size: 1.5rem;
+      /* 뒷면을 안 보이게 해주는 설정
+      즉, 변형이 가해져서 요소의 뒷면(뒤집힌 것)을 숨기거나 보여지게 할 수 있습니다.*/
+      backface-visibility: hidden;
+    }
+    .card-side-front{
+      /* z-index는 front card가 앞으로 오게 해주는 것이다. 즉 요소를 앞으로 배치하는데 숫자는
+      그 인덱스를 의미한다 이것을 안 쓰면 B가 먼저 생김 html 태그 순서에 따라서. */
+      z-index: 1;
+      background: white;
+    }
+    .card-side-back{
+      background:red;
+      /* 뒷면은 미리 돌려놓는다. 그래야 F에서 돌려질때 제대로 된 B가 나온다.*/
+      transform: rotateY(180deg);
+    }
+    .world:hover .card{
+      transform: rotateY(-180deg);
+    }
+  </style>
+</head>
+<body>
+  <div class="world">
+    <div class="card">
+      <div class="card-side card-side-front">F</div>
+      <div class="card-side card-side-back">B</div>
+    </div>
+  </div>
+</body>
+</html>
