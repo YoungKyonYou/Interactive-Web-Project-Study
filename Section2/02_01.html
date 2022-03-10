@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/02_01.css">
+
+</head>
+<body>
+  <div class="characters">
+    <div class="ilbuni a">
+      <img src="images/ilbuni_0.png" alt="일분이">
+    </div>
+    <div class="ilbuni b">
+      <img src="images/ilbuni_1.png" alt="일분이">
+    </div>
+    <div class="ilbuni c">
+      <img src="images/ilbuni_2.png" alt="일분이">
+    </div>
+  </div>
+  <div class="ilbuni d">
+    <img src="images/ilbuni_3.png" alt="일분이">
+  </div>
+
+  <script>
+  (function(){
+
+      const ilbuni=document.querySelector('.ilbuni.c');
+
+      function clickIlbuniHandler(){
+        ilbuni.classList.toggle('special');
+      }
+      ilbuni.addEventListener('click',clickIlbuniHandler);
+
+    console.log(ilbuni);
+    // 이런식으로 호출하기도 함
+  })();
+
+
+
+  //
+  // function ilbun(){
+  //   window.addEventListener('DOMContentLoaded',function(){
+  //     const ilbuni=document.querySelector('.ilbuni.c');
+  //
+  //     // const clickIlbuniHandler=function(){
+  //     //
+  //     // }
+  //     // const clickIlbunihandler=()=>{
+  //     //
+  //     // }
+  //     function clickIlbuniHandler(){
+  //       ilbuni.classList.toggle('special');
+  //     }
+  //     ilbuni.addEventListener('click',clickIlbuniHandler);
+  //   });
+  //   console.log(ilbuni);
+  // }
+  // ilbun();
+
+  // // 문서의 load가 끝나면 이 함수가 실행이 된다는 의미이다. 그리고 load는 문서의 모든 리소스가
+  // // 로드될때까지 기대렸다가 전부다 로드가 끝나면 비로서 실행을 한다. 그런데 그럴 필요가 없다.
+  // // 그래서 load 대신 DOMContentLoaded를 쓰는 것이 좋다. 이것은 이 DOM 구조만 로드가 되면 실행을 해준다.
+  //   window.addEventListener('DOMContentLoaded',function(){
+  //     const ilbuni=document.querySelector('.ilbuni.c');
+  //
+  //     const clickIlbuniHandler=function(){
+  //
+  //     }
+  //     const clickIlbunihandler=()=>{
+  //
+  //     }
+  //     function clickIlbuniHandler(){
+  //       ilbuni.classList.toggle('special');
+  //     }
+  //     ilbuni.addEventListener('click',clickIlbuniHandler);
+  //   });
+  //   console.log(ilbuni);
+
+
+  </script>
+</body>
+</html>

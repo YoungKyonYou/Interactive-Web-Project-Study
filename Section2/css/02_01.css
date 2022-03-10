@@ -1,0 +1,17 @@
+img{
+  max-width: 100%;
+  height: auto;
+}
+.characters{
+  background: #fff000;
+}
+.ilbuni{
+  width: 100px;
+}
+.characters .ilbuni{
+  display: inline-block;
+}
+.special{
+  /* 빨간색 점선 */
+  border: 10px dashed red;
+}
