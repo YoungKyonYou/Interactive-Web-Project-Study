@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/02_02.css">
+
+</head>
+<body>
+  <div class="stage">
+    <div class="ilbuni a"></div>
+    <div class="ilbuni b"></div>
+    <div class="ilbuni c"></div>
+  </div>
+  <script>
+    (function(){
+      // 이벤트 위임
+      // const ilbuniGroup=document.querySelectorAll('.ilbuni');
+      const stage=document.querySelector('.stage');
+
+      function clickHandler(e){
+        // console.log(this);
+        // console.log(e.currentTarget);
+        //stage.removeChild(this);
+        // this.parentNode.removeChild(this);
+        if(e.target.classList.contains('ilbuni')){
+            stage.removeChild(e.target);
+        }
+      }
+      stage.addEventListener('click',clickHandler);
+
+      // for(let i=0;i<ilbuniGroup.length;i++){
+      //   ilbuniGroup[i].addEventListener('click',clickHandler);
+      // }
+      // ilbuniGroup[0].addEventListener('click',clickHandler);
+      // ilbuniGroup[1].addEventListener('click',clickHandler);
+      // ilbuniGroup[2].addEventListener('click',clickHandler);
+
+    })();
+  </script>
+</body>
+</html>

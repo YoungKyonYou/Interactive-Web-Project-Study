@@ -1,0 +1,45 @@
+.stage{
+  overflow: hidden;
+  position: relative;
+  width: 100vw;
+  height:75vw;
+  background: #fff000;
+}
+@keyframes moving{
+  from {
+    transform: translateX(0);
+  }
+  to{
+    transform: translateX(90vw);
+  }
+}
+.ilbuni{
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-repeat: no-repeat;
+  /* 가운데로 위치 */
+  background-position: 50% 50%;
+  /* contain은 레이아웃에 잘리지 않고 꽉 차게 해주는 것이다. cover랑은 다르다. */
+  background-size: contain;
+  /* alternate 속성으로 다시 돌아오게 한다. */
+  animation: moving 3s infinite alternate;
+}
+.ilbuni.a{
+  left: 10%;
+  bottom: 5%;
+  background-image: url('../images/ilbuni_0.png');
+  animation-duration: 2s;
+}
+.ilbuni.b{
+  left: 10%;
+  bottom: 3%;
+  background-image: url('../images/ilbuni_1.png');
+  animation-duration: 3s;
+}
+.ilbuni.c{
+  left: 7%;
+  bottom: 5%;
+  background-image: url('../images/ilbuni_2.png');
+  animation-duration: 4s;
+}

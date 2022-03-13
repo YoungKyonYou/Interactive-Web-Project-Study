@@ -20,22 +20,31 @@
     <div class="ilbuni c">
       <img src="images/ilbuni_2.png" alt="일분이">
     </div>
+    <div class="ilbuni d">
+      <img src="images/ilbuni_3.png" alt="일분이">
+    </div>
   </div>
-  <div class="ilbuni d">
-    <img src="images/ilbuni_3.png" alt="일분이">
-  </div>
+
 
   <script>
   (function(){
 
-      const ilbuni=document.querySelector('.ilbuni.c');
+      const characters=document.querySelector('.characters');
+      function clickHandler(e){
+        // console.log(e.currentTarget);
+        //특정 개체 클릭했을 때 클릭한 것마다 다른 객체가 로그로 나옴
+        // console.log(e.target);
 
-      function clickIlbuniHandler(){
-        ilbuni.classList.toggle('special');
       }
-      ilbuni.addEventListener('click',clickIlbuniHandler);
 
-    console.log(ilbuni);
+      characters.addEventListener('click',clickHandler);
+
+    //   function clickIlbuniHandler(){
+    //     ilbuni.classList.toggle('special');
+    //   }
+    //   ilbuni.addEventListener('click',clickIlbuniHandler);
+    //
+    // console.log(ilbuni);
     // 이런식으로 호출하기도 함
   })();
 
