@@ -14,7 +14,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      perspective: 800px;
+      /* perspective: 800px; */
     }
     .door{
       position: relative;
@@ -41,6 +41,11 @@
       background-position: 50% 100%;
       background-size: contain;
       transform: translate3d(100%,0,0);
+      /* 앞에 것은 duration이고 뒤에건 delay이다.즉
+      애니메이션이 0.5s초동안 재생이 되는데 그 시작을 바로 하지 말고 0.5초 후에 시작하라는
+      의미이다. */
+      transition: 0.5s 0.5s;
+
     }
     .door:nth-child(1) .ilbuni{
       background-image: url(images/ilbuni_0.png);
@@ -57,12 +62,17 @@
       top: 0;
       width: 100%;
       height: 100%;
+      transition: 0.5s;
+      transform-origin: 0%;
     }
     .door:nth-child(1) .door-body{background: rgba(255,0,0,0.7);}
     .door:nth-child(2) .door-body{background: rgba(0,255,0,0.7);}
     .door:nth-child(3) .door-body{background: rgba(0,0,255,0.7);}
-    .door:hover .door-body{
-      transform: rotateY(100deg);
+    .door-opened .door-body{
+      transform: perspective(800px) rotateY(-110deg);
+    }
+    .door-opened .ilbuni{
+      transform: translate3d(0,0,0);
     }
   </style>
 
@@ -88,5 +98,36 @@
       <div class="door-body"></div>
     </div>
   </div>
+  <script type="text/javascript">
+    (function(){
+      const stageElem=document.querySelector('.stage');
+      // 현재 활성화된 아이템을 저장
+      let currentItem;
+
+      function activate(elem){
+        elem.classList.add('door-opened');
+        currentItem=elem;
+      }
+
+      function inactivate(elem){
+        elem.classList.remove('door-opened');
+      }
+
+      function doorHandler(e){
+        const targetElem=e.target;
+
+        if(currentItem){
+          inactivate(currentItem);
+        }
+        if(targetElem.classList.contains('door-body')){
+          activate(targetElem.parentNode);
+        }
+      }
+
+
+      stageElem.addEventListener('click',doorHandler);
+      // activate(document.querySelector('.door:first-child'));
+    })();
+  </script>
 </body>
 </html>
