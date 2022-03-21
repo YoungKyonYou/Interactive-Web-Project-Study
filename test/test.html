@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>QR Clock</title>
+  <style type="text/css">
+    body {
+      margin: 0;
+    }
+    .qr-clock {
+      position: absolute;
+      position: relative;
+      width: 100vmin;
+      height: 100vmin;
+      margin: 0 auto;
+    }
+
+    .sq {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: #000;
+      transition: transform 250ms;
+    }
+  </style>
+</head>
+<body>
+
+<div class="qr-clock"></div>
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="../../../../../../HTML&CSS/test/qrcode.js"></script>
+<script>
+
+  var clock = d3.select('.qr-clock')
+
+  var duration = 250, qrPadding = 4
+
+  var typeNumber = 2, errorCorrectionLevel = 'L'
+
+  var formatTime = d3.timeFormat("%H:%M:%S")
+
+  var clockSize = Math.min(clock.node().offsetWidth, clock.node().offsetHeight)
+
+  var scale = d3.scaleBand().rangeRound([0, clockSize])
+
+  var qrSize // bad global
+
+  function tick() {
+    var now = new Date()
+    d3.timeout(tick, 1000 - now % 1000)
+    renderTime(formatTime(now))
+  }
+
+  tick()
+
+  scale.domain(d3.range(32))
+
+  function s(d) {
+    return scale(d + qrPadding) + 'px'
+  }
+
+  function renderTime(text) {
+    var even = text.slice(-1) % 2 == 0
+
+    var qr = qrcode(typeNumber, errorCorrectionLevel)
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date+' '+time;
+    qr.addData(date+" "+text)
+    qr.make()
+
+    var data = []
+
+    qrSize = qr.getModuleCount()
+
+    scale.domain(d3.range(qrSize + qrPadding * 2))
+
+    for (var x = 0; x < qrSize; x++) {
+      for (var y = 0; y < qrSize; y++) {
+        if (qr.isDark(y, x)) {
+          data.push([x, y])
+        }
+      }
+    }
+
+    render(data, even)
+  }
+
+  function key(d) {
+    return d.join()
+  }
+
+  function render(data1, even) {
+    var data0 = clock.selectAll('.sq').data()
+
+    var cells = clock.selectAll('.sq').data(data1, key)
+
+    cells.exit()
+        .style('transform', function(d) {
+          var p = findNearest(data1, d, even)
+          return 'translate(' + p.map(s) + ')'
+        })
+        .transition()
+        .duration(duration)
+        .remove()
+
+    cells.enter()
+      .append('div')
+      .attr('class', 'sq')
+      .style('width', scale.bandwidth() + 'px')
+      .style('height', scale.bandwidth() + 'px')
+      .style('transform', function(d) {
+        var p = findNearest(data0, d, even)
+        return 'translate(' + p.map(s) + ')'
+      })
+      .merge(cells)
+        .transition()
+        .duration(0)
+        .style('transform', function(d) {
+          return 'translate(' + d.map(s) + ')'
+        })
+  }
+
+  var markerSize = 8
+
+  function findNearest(data, p, even) {
+    if (!data.length) {
+      return p
+    }
+    var nearestX = -1, nearestY = -1
+    data.forEach(function(d, i) {
+      // Don't include position indicators
+      if (((d[0] < markerSize || d[0] > qrSize-markerSize) && d[1] < markerSize) || (d[0] < markerSize && d[1] > qrSize-markerSize)) return;
+
+      if (d[1] == p[1]) {
+        var distX = Math.abs(d[0] - p[0])
+        if (nearestX < 0 || distX < nearestX.dist) {
+          nearestX = d
+          nearestX.dist = distX
+        }
+      }
+
+      if (d[0] == p[0]) {
+        var distY = Math.abs(d[1] - p[1])
+        if (nearestY < 0 || distY < nearestY.dist) {
+          nearestY = d
+          nearestY.dist = distY
+        }
+      }
+    })
+
+    var nearest = even ? nearestX : nearestY
+
+    if (nearest < 0) {
+      nearest = even ? nearestY : nearestX
+    }
+
+    return nearest
+  }
+
+</script>
+
+</body>
+</html>

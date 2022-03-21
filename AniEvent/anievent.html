@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Transition/Animation Event</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <style>
+  @keyframes ball-ani{
+    from{
+      transform: translate(0,0);
+    }
+    to{
+      transform: translate(200px, 200px);
+    }
+  }
+  .ball{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    /* 화면을 클릭해서 공이 오게 할 때 가운데로 오게 함 */
+    /* margin: -15px 0 0 -15px; */
+    border-radius: 50%;
+    background: red;
+    transition: 1s;
+    /* forward: ;*/
+    /* animation: ball-ani 1s 3 alternate forwards; */
+  }
+  .ball.end{
+    /* background: dodgerblue; */
+    border: 5px solid dodgerblue;
+  }
+  </style>
+</head>
+<body>
+  <div class="ball">
+
+  </div>
+
+  <script>
+    // const ballElem=document.querySelector('.ball');
+    //
+    // window.addEventListener('click',function(e){
+    //   // 내가 클릭한 위치를 찍는다.
+    //   // console.log(e.clientX, e.clientY);
+    //
+    //   // 이는 ball의 stlye에 translate(xxpx yypx) 넣는것과 같다
+    //   ballElem.style.transform='translate('+(e.clientX-15)+'px, '+(e.clientY-15)+'px)';
+    // });
+    //
+    // // transition이 끝날 때 발생하는 이벤트이다.
+    // ballElem.addEventListener('transitionend', function(e){
+    // // ballElem.addEventListener('transitionstart', function(e){
+    //   ballElem.classList.add('end');
+    //   // transition이 발생하는데 걸린 시간 찍힘
+    //   console.log(e.elapsedTime);
+    //
+    //   console.log(e.propertyName);
+    // });
+
+    const ballElem=document.querySelector('.ball');
+
+    ballElem.addEventListener('click',function(){
+      ballElem.style.animation='ball-ani 1s 3 alternate forwards';
+    })
+
+    // animationstart도 있다.
+    ballElem.addEventListener('animationend',function(){
+      ballElem.classList.add('end');
+    });
+
+
+    ballElem.addEventListener('animationiteration',function(){
+      console.log('반복!');
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+</body>
+</html>
