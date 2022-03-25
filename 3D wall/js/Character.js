@@ -37,8 +37,11 @@ function Character(info){
   this.lastScrollTop=0;
   // 객체의 속성으로도 등록하기
   this.xPos=info.xPos;
-  this.speed=0.3;
+  this.speed=info.speed;
   this.direction;
+  // 좌우 이동 중인지 아닌지 판별하는 속, 이동중이면 true
+  this.runningState=false;
+  this.rafId;
   this.init();
 }
 
@@ -96,12 +99,14 @@ Character.prototype={
       // self.mainElem.classList.add('running');
     });
     window.addEventListener('keydown',function(e){
+      if(self.runningState) return;
       //아스키 코드 출력함
       if(e.keyCode==37){
         self.direction='left'
         self.mainElem.setAttribute('data-direction','left');
         self.mainElem.classList.add('running');
         self.run(self);
+        self.runningState=true;
         // self.xPos -=self.speed;
         // self.mainElem.style.left=self.xPos+'%';
       }else if(e.keyCode==39){
@@ -109,18 +114,29 @@ Character.prototype={
         self.mainElem.setAttribute('data-direction','right');
         self.mainElem.classList.add('running');
         self.run(self);
+          self.runningState=true;
       }
     });
 
     window.addEventListener('keyup',function(e){
       self.mainElem.classList.remove('running');
+      self.runningState=false;
+      cancelAnimationFrame(self.rafId);
     });
   },
   run: function(self){
+    // console.log(self.xPos);
+
     if(self.direction=='left'){
       self.xPos-=self.speed;
     }else if(self.direction=='right'){
       self.xPos+=self.speed;
+    }
+    if(self.xPos<2){
+      self.xPos=2;
+    }
+    if(self.xPos>88){
+      self.xPos=88;
     }
 
     self.mainElem.style.left=self.xPos+'%';
@@ -128,7 +144,7 @@ Character.prototype={
     //self의 run, 바로 위에 거 실행
     // requestAnimationFrame 때문에 this가 가르치는 애가 바뀐다.
     //
-    requestAnimationFrame(function(){
+    self.rafId=requestAnimationFrame(function(){
       self.run(self);
     });
   }
